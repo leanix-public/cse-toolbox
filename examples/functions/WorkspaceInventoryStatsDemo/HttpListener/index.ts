@@ -17,7 +17,8 @@ const requestHandler = async (context: Context) => {
   const res = await executeGraphQL('{allFactSheets{edges{node{id type name}}}}')
   context.res = {
     // status: 200, /* Defaults to 200 */
-    body: JSON.stringify(res, null, 2)
+    contentType: 'application/json',
+    body: res
   }
 }
 
@@ -40,16 +41,16 @@ const httpTrigger: AzureFunction = async function (
       console.error(`Invalid credentials: ${error.message}`)
       context.res = {
         status: 401,
-        message: JSON.stringify({ error: 'unauthorized' })
+        contentType: 'application/json',
+        body: { error: 'unauthorized' }
       }
       // Getting this error means that we could not reach our workspace host
     } else if (error instanceof NetworkConnectivityError) {
       console.error(error)
       context.res = {
         status: 500,
-        message: JSON.stringify({
-          error: 'something went wrong, please try again later'
-        })
+        contentType: 'application/json',
+        body: { error: 'something went wrong, please try again later' }
       }
       // Here we got a 401 from the backend,
       // Just in case of an expired accessToken fetched earlier, we will repeat the authorization process
@@ -63,7 +64,8 @@ const httpTrigger: AzureFunction = async function (
         if (error instanceof UnauthenticatedError) {
           context.res = {
             status: 401,
-            message: JSON.stringify({ error: 'unauthorized' })
+            contentType: 'application/json',
+            body: { error: 'unauthorized' }
           }
         } else throw error
       }

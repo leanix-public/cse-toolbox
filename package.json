@@ -6,7 +6,8 @@
     "./packages/*",
     "./functions/*",
     "./examples/functions/*",
-    "./examples/scripts/*"
+    "./examples/scripts/*",
+    "./projects/functions/*"
   ],
   "engines": {
     "node": ">=18.12.1"
@@ -18,7 +19,10 @@
     "clean": "rimraf \"**/dist\" \"**/*.tsbuildinfo\" \"**/*.tgz\" \"**/.temp\" \"**/coverage\"",
     "prepare": "husky install"
   },
-  "author": "",
+  "author": {
+    "name": "Paulo Santos",
+    "email": "paulo.santos@leanix.net"
+  },
   "license": "ISC",
   "devDependencies": {
     "@azure/functions": "^3.2.0",
@@ -41,6 +45,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "figlet": "^1.5.2",
     "husky": "^8.0.0",
+    "ngrok": "^4.3.3",
     "rimraf": "^3.0.2",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1"

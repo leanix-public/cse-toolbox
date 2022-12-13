@@ -6,11 +6,12 @@ import {
   NetworkConnectivityError
 } from './helpers/errors'
 
-import type { ILeanIXCredentials } from './hooks/useLeanIX'
+import type { ILeanIXCredentials, IGraphQLResponse } from './hooks/useLeanIX'
 
 export {
   useLeanIX,
   ILeanIXCredentials,
+  IGraphQLResponse,
   UnauthenticatedError,
   InvalidLeanIXApiTokenError,
   InvalidLeanIXHostError,
