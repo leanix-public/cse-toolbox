@@ -19,7 +19,7 @@ import {
 } from './useLeanIX.d'
 
 export { getDefaultAccessToken, getDefaultJwtClaims }
-export { type ILeanIXCredentials }
+export type { ILeanIXCredentials, IGraphQLResponse }
 export {
   InvalidLeanIXApiTokenError,
   InvalidLeanIXHostError,
@@ -90,8 +90,8 @@ const useLeanIX = (credentials: ILeanIXCredentials) => {
     jwtClaims,
     authenticate: (): Promise<void> =>
       authenticate(credentials, accessToken, jwtClaims, state),
-    executeGraphQL: (query: string, variables?: Record<string, any>) =>
-      executeGraphQL({
+    executeGraphQL: <T>(query: string, variables?: Record<string, any>) =>
+      executeGraphQL<T>({
         query,
         variables,
         accessToken
