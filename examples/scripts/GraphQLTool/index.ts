@@ -36,7 +36,7 @@ program
   .option(
     '-o, --output <json file path>',
     'The path for the output file',
-    DEFAULT_GRAPHQL_QUERY
+    DEFAULT_OUTPUT_PATH
   )
   .parse(process.argv)
 
