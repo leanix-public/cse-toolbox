@@ -36,6 +36,8 @@ const MATURITY_VALUES = [
   'optimized'
 ]
 
+const MATURITY_GAP_VALUES = ['aligned', 'low', 'medium', 'large', 'max']
+
 // Method for computing the maturityGap from the difference between the targetMaturity and currentMaturity fields
 const computeMaturityGap = (
   targetMaturity: string | null,
@@ -48,9 +50,11 @@ const computeMaturityGap = (
   const maturityGap =
     currentMaturity === null || targetMaturity === null
       ? null
-      : Math.abs(
-          (currentMaturityValue as number) - (targetMaturityValue as number)
-        ).toString()
+      : MATURITY_GAP_VALUES[
+          Math.abs(
+            (currentMaturityValue as number) - (targetMaturityValue as number)
+          )
+        ]
   return maturityGap
 }
 

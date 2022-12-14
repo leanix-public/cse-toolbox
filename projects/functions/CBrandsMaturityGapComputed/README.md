@@ -30,7 +30,7 @@ The three following fields must be added to the **Business Capability** data mod
 | --------------- | ------------- | ------- | ------ | ---------------------------------------------------------- |
 | targetMaturity  | SINGLE_SELECT | true    | true   | ["adhoc", "repeatable", "defined", "managed", "optimized"] |
 | currentMaturity | SINGLE_SELECT | true    | true   | ["adhoc", "repeatable", "defined", "managed", "optimized"] |
-| maturityGap     | SINGLE_SELECT | true    | true   | ["adhoc", "repeatable", "defined", "managed", "optimized"] |
+| maturityGap     | SINGLE_SELECT | true    | true   | ["aligned", "low", "medium", "large", "max"]               |
 
 
 ## References
