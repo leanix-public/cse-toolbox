@@ -33,6 +33,12 @@ The three following fields must be added to the **Business Capability** data mod
 | maturityGap     | SINGLE_SELECT | true    | true   | ["aligned", "low", "medium", "large", "max"]               |
 
 
+### Security
+The azure function is secured by setting the "authLevel" option to "function", in the "function.json" file.
+The function key generated in Azure needs to be added to the webhook target endpoint as a queryParam "code".
+A full example looks like this:
+https://functionapp.azurewebsites.net/api/WebHookListener?code=yDHg3qnzKJ-_7KVBzqOEJVTR4zcu7rlOrHgiqGEw3ZzyAzFuwWZdv-==
+
 ## References
 
 ### Target workspace
