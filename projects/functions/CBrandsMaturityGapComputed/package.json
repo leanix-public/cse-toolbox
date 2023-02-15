@@ -1,5 +1,6 @@
 {
-  "name": "@functions/cbrands_maturity_gap_computed",
+  "name": "function_cbrands_maturity_gap_computed",
+  "private": true,
   "version": "0.1.0",
   "description": "Azure function that computes the maturityGap from targetMaturity and currentMaturity",
   "author": {
@@ -13,11 +14,20 @@
     "publish": "func azure functionapp publish CBrandsMaturityGapComputed",
     "test": "echo \"No tests yet...\""
   },
-  "dependencies": {},
+  "dependencies": {
+    "lx-core": "*"
+  },
   "devDependencies": {
     "@azure/functions": "^3.0.0",
     "azure-functions-core-tools": "^4.x",
     "@types/node": "16.x",
-    "typescript": "^4.0.0"
+    "typescript": "^4.0.0",
+    "esbuilder": "*",
+    "eslint-config-lx": "*"
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint-config-lx"
+    ]
   }
 }

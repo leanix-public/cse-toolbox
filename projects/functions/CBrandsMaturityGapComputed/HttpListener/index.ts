@@ -5,7 +5,7 @@ import {
   InvalidLeanIXApiTokenError,
   InvalidLeanIXHostError,
   NetworkConnectivityError
-} from 'core'
+} from 'lx-core'
 
 export interface IWebhookPayload {
   id: number

@@ -4,7 +4,7 @@ import figlet from 'figlet'
 import { writeFileSync } from 'node:fs'
 import { version, description } from './package.json'
 
-import { useLeanIX } from 'core'
+import { useLeanIX } from 'lx-core'
 
 export interface ICliOptions {
   host: string
@@ -45,7 +45,7 @@ const {
   apitoken,
   query = DEFAULT_GRAPHQL_QUERY,
   output = DEFAULT_OUTPUT_PATH
-} = program.opts<ICliOptions>()
+} = program.opts<ICliOptions>();
 
 const { authenticate, executeGraphQL } = useLeanIX({ host, apitoken })
 ;(async () => {

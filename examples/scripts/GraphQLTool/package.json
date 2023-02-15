@@ -1,5 +1,5 @@
 {
-  "name": "examples_scripts_graphqltool",
+  "name": "script_graphqltool",
   "version": "1.0.0",
   "description": "A simple cli tool for querying LeanIX GraphQL API and downloading results into a json file",
   "main": "./dist/index.js",
@@ -11,6 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "commander": "^9.4.1",
-    "figlet": "^1.5.2"
+    "figlet": "^1.5.2",
+    "lx-core": "*"
+  },
+  "devDependencies": {
+    "esbuilder": "*",
+    "eslint-config-lx": "*"
   }
 }

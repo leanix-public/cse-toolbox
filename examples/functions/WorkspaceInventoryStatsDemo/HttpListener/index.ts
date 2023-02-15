@@ -5,7 +5,7 @@ import {
   InvalidLeanIXApiTokenError,
   InvalidLeanIXHostError,
   NetworkConnectivityError
-} from 'core'
+} from 'lx-core'
 
 const { authenticate, executeGraphQL, accessToken } = useLeanIX({
   // Local development: environment variables defined in local.settings.json
@@ -19,7 +19,7 @@ const requestHandler = async (context: Context) => {
     // status: 200, /* Defaults to 200 */
     contentType: 'application/json',
     body: res
-  }
+  };
 }
 
 const httpTrigger: AzureFunction = async function (
