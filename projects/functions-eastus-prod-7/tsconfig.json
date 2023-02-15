@@ -9,5 +9,6 @@
     "paths": {
       "lx-core": ["../../../packages/lx-core/src"]
     }
-  }
+  },
+  "exclude": [".funcignore"]
 }

@@ -5,13 +5,13 @@
   "description": "Library with core functionality for interfacing with LeanIX APIs",
   "license": "MIT",
   "keywords": [],
+  "main": "./src/index.ts",
   "scripts": {
     "build": "echo not implemented",
     "test": "cross-env DOTENV_CONFIG_PATH=../../.env jest --coverage"
   },
   "dependencies": {
-    "jwt-decode": "^3.1.2",
-    "vue": "^3.2.45"
+    "jwt-decode": "^3.1.2"
   },
   "devDependencies": {
     "eslint-config-lx": "*"

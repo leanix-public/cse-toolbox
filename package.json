@@ -4,9 +4,8 @@
   "private": true,
   "workspaces": [
     "./packages/*",
-    "./examples/functions/*",
-    "./examples/scripts/*",
-    "./projects/functions/*"
+    "./examples/*",
+    "./projects/*"
   ],
   "engines": {
     "node": ">=18.12.1"

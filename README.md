@@ -68,3 +68,5 @@ c. Add a function to your project by using the following command, where the --na
 func new --name HttpExample --template "HTTP trigger" --authlevel "function"
 ```
 
+## Azure Typescript Function: Debug Your Function Locally (Webhook)
+1. Launch the function locally using the following command: func start

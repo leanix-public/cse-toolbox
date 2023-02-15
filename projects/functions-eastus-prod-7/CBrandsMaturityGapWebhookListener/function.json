@@ -1,7 +1,7 @@
 {
   "bindings": [
     {
-      "authLevel": "function",
+      "authLevel": "Function",
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
@@ -15,5 +15,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/HttpListener/index.js"
+  "scriptFile": "../dist/CBrandsMaturityGapWebhookListener/index.js"
 }
