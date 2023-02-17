@@ -5,7 +5,7 @@ import {
   InvalidLeanIXApiTokenError,
   InvalidLeanIXHostError,
   NetworkConnectivityError
-} from 'core'
+} from 'lx-core'
 
 export interface IWebhookPayload {
   id: number
@@ -36,6 +36,8 @@ const MATURITY_VALUES = [
   'optimized'
 ]
 
+const MATURITY_GAP_VALUES = ['aligned', 'low', 'medium', 'large', 'max']
+
 // Method for computing the maturityGap from the difference between the targetMaturity and currentMaturity fields
 const computeMaturityGap = (
   targetMaturity: string | null,
@@ -48,9 +50,11 @@ const computeMaturityGap = (
   const maturityGap =
     currentMaturity === null || targetMaturity === null
       ? null
-      : Math.abs(
-          (currentMaturityValue as number) - (targetMaturityValue as number)
-        ).toString()
+      : MATURITY_GAP_VALUES[
+          Math.abs(
+            (currentMaturityValue as number) - (targetMaturityValue as number)
+          )
+        ]
   return maturityGap
 }
 
@@ -141,14 +145,16 @@ const updateBusinessCapabilityMaturityGap = async (params: {
   )
 }
 
+// This will be sent if we get an invalid request
+const invalidResponse = {
+  status: 500,
+  contentType: 'application/json',
+  body: { error: 'invalid request' }
+}
 // Here we just process the webhook payload and implement the algorithm for computing the maturityGap field
 const requestHandler = async (context: Context, req: HttpRequest) => {
   if (req.method !== 'POST' || (req?.body ?? null) === null) {
-    context.res = {
-      status: 500,
-      contentType: 'application/json',
-      body: { error: 'invalid request' }
-    }
+    context.res = invalidResponse
     return
   }
   const body = req.body as IWebhookPayload
@@ -156,22 +162,29 @@ const requestHandler = async (context: Context, req: HttpRequest) => {
     body.type !== 'FactSheetUpdatedEvent' ||
     body?.factSheet?.type !== 'BusinessCapability'
   )
-    return
+    return invalidResponse
   const factSheet = await fetchBusinessCapabilityMaturyFields({
     context,
     id: body.factSheet.id
   })
-  if (context?.res?.status === 500 || factSheet === null) return
+  if (context?.res?.status === 500 || factSheet === null) return invalidResponse
 
   const { maturityGap, currentMaturity, targetMaturity } = factSheet
   const _maturityGap = computeMaturityGap(targetMaturity, currentMaturity)
 
+  let msg = 'request processed, no changes'
   if (_maturityGap !== maturityGap) {
     await updateBusinessCapabilityMaturityGap({
       context,
       id: factSheet.id,
       maturityGap: _maturityGap
     })
+    msg = `updated maturityGap for factSheet ${factSheet.type} ${factSheet.id}`
+  }
+  context.res = {
+    status: 200,
+    contentType: 'application/json',
+    body: { msg }
   }
 }
 

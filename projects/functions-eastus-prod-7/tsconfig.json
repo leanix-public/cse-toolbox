@@ -7,7 +7,8 @@
     "strict": false,
     "strictNullChecks": true,
     "paths": {
-      "core": ["../../../packages/core/src"]
+      "lx-core": ["../../../packages/lx-core/src"]
     }
-  }
+  },
+  "exclude": [".funcignore"]
 }

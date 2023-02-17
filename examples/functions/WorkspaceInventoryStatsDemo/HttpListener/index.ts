@@ -5,7 +5,7 @@ import {
   InvalidLeanIXApiTokenError,
   InvalidLeanIXHostError,
   NetworkConnectivityError
-} from 'core'
+} from 'lx-core'
 
 const { authenticate, executeGraphQL, accessToken } = useLeanIX({
   // Local development: environment variables defined in local.settings.json

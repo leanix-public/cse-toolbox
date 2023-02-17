@@ -12,5 +12,5 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "exclude": [".git", "node_modules"]
+  "exclude": [".git", "node_modules", ".funcignore"]
 }

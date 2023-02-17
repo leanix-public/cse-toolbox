@@ -1,13 +1,11 @@
 {
-  "name": "azure-functions-monorepo",
-  "description": "LeanIX Azure Functions Monorepo",
+  "name": "cse-toolbox",
+  "description": "CSE Toolbox Monorepo",
   "private": true,
   "workspaces": [
     "./packages/*",
-    "./functions/*",
-    "./examples/functions/*",
-    "./examples/scripts/*",
-    "./projects/functions/*"
+    "./examples/*",
+    "./projects/*"
   ],
   "engines": {
     "node": ">=18.12.1"
@@ -17,7 +15,8 @@
     "build": "npm run build --workspaces --if-present",
     "clean:all": "npm run clean & rimraf \"**/node_modules\"",
     "clean": "rimraf \"**/dist\" \"**/*.tsbuildinfo\" \"**/*.tgz\" \"**/.temp\" \"**/coverage\"",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "show-graph": "npx nx graph"
   },
   "author": {
     "name": "Paulo Santos",
@@ -38,16 +37,18 @@
     "dotenv": "^16.0.3",
     "esbuild": "^0.15.16",
     "esbuild-node-externals": "^1.5.0",
-    "eslint": "^8.28.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-config-standard-with-typescript": "^23.0.0",
-    "eslint-define-config": "^1.12.0",
-    "eslint-plugin-prettier": "^4.2.1",
     "figlet": "^1.5.2",
     "husky": "^8.0.0",
+    "lerna": "^6.4.1",
     "ngrok": "^4.3.3",
     "rimraf": "^3.0.2",
     "ts-jest": "^29.0.3",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "eslint-config-lx": "*"
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint-config-lx"
+    ]
   }
 }

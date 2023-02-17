@@ -39,3 +39,34 @@ A: Check the following points: the "dist" folder of your function contains a sou
 
 ## Azure Publish Workflow
 https://learn.microsoft.com/en-us/azure/azure-functions/functions-reference-node?tabs=v2-v3-v4-export%2Cv2-v3-v4-done%2Cv2%2Cv2-log-custom-telemetry%2Cv2-accessing-request-and-response%2Cwindows-setting-the-node-version#publish-to-azure
+
+https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-node?tabs=azure-cli%2Cbrowser
+
+
+
+## Azure Typescript Function: Create New Project Workflow
+
+Prerequisites:
+In a terminal or command window, run func --version to check that the Azure Functions Core Tools are version 4.x.
+Run az --version to check that the Azure CLI version is 2.4 or later.
+Run az login to sign in to Azure and verify an active subscription.
+
+Step 1: Create a local function project
+
+a. Run the func init command, as follows, to create a functions project in a folder named LocalFunctionProj with the specified runtime:
+```bash
+func init <YOUR FUNCTION PROJECT NAME> --typescript
+```
+
+b. Navigate into the project folder:
+```bash
+cd <YOUR FUNCTION PROJECT NAME>
+```
+
+c. Add a function to your project by using the following command, where the --name argument is the unique name of your function (HttpExample) and the --template argument specifies the function's trigger (HTTP).
+```bash
+func new --name HttpExample --template "HTTP trigger" --authlevel "function"
+```
+
+## Azure Typescript Function: Debug Your Function Locally (Webhook)
+1. Launch the function locally using the following command: func start

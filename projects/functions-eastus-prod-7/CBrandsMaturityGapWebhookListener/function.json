@@ -1,12 +1,11 @@
 {
   "bindings": [
     {
-      "authLevel": "Anonymous",
+      "authLevel": "Function",
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
       "methods": [
-        "get",
         "post"
       ]
     },
@@ -16,5 +15,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/HttpListener/index.js"
+  "scriptFile": "../dist/CBrandsMaturityGapWebhookListener/index.js"
 }

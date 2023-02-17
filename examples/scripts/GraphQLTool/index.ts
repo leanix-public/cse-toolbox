@@ -4,7 +4,7 @@ import figlet from 'figlet'
 import { writeFileSync } from 'node:fs'
 import { version, description } from './package.json'
 
-import { useLeanIX } from 'core'
+import { useLeanIX } from 'lx-core'
 
 export interface ICliOptions {
   host: string
