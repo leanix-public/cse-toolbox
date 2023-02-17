@@ -7,6 +7,7 @@
     "build": "npx esbuilder -e ./HttpListener/index.ts",
     "prestart": "npm run build",
     "start": "func start",
+    "prepublish": "npm run build",
     "publish": "func azure functionapp publish WorkspaceInventoryStatsDemo",
     "test": "echo \"No tests yet...\""
   },

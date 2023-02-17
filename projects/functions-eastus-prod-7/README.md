@@ -33,7 +33,7 @@ E.g.:
 ## Requirements
 
 The following App Keys are required: "LXR_HOST" and "LXR_APITOKEN".
-Without those keys defined, the webhook listener will return a 403.
+Without those keys defined, the webhook listener will return a "401 - Invalid credentials" error.
 
 ### How to add App Keys?
 

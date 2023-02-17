@@ -11,6 +11,7 @@
     "prestart": "npm run build",
     "start": "func start",
     "test": "echo \"No tests yet...\"",
+    "prepublish": "npm run build",
     "publish": "func azure functionapp publish functions-eastus-prod-7"
   },
   "devDependencies": {

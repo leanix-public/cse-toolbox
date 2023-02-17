@@ -1,6 +1,6 @@
 {
-  "name": "azure-functions-monorepo",
-  "description": "LeanIX Azure Functions Monorepo",
+  "name": "cse-toolbox",
+  "description": "CSE Toolbox Monorepo",
   "private": true,
   "workspaces": [
     "./packages/*",
