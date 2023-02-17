@@ -45,7 +45,7 @@ const {
   apitoken,
   query = DEFAULT_GRAPHQL_QUERY,
   output = DEFAULT_OUTPUT_PATH
-} = program.opts<ICliOptions>();
+} = program.opts<ICliOptions>()
 
 const { authenticate, executeGraphQL } = useLeanIX({ host, apitoken })
 ;(async () => {

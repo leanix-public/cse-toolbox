@@ -11,11 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "commander": "^9.4.1",
-    "figlet": "^1.5.2",
-    "lx-core": "*"
-  },
-  "devDependencies": {
-    "esbuilder": "*",
-    "eslint-config-lx": "*"
+    "figlet": "^1.5.2"
   }
 }
