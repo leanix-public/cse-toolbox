@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "outDir": "dist",
+    "sourceMap": true,
+    "strict": false,
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    "paths": {
+      "lx-core": ["../../../packages/lx-core/src"]
+    }
+  },
+  "exclude": [".funcignore"]
+}
