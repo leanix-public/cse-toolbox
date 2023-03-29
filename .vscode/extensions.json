@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "ms-azuretools.vscode-azurefunctions",
+    "azurite.azurite",
     "dbaeumer.vscode-eslint",
     "Orta.vscode-jest"
   ]

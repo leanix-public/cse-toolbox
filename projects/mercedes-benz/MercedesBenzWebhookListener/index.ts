@@ -1,142 +1,17 @@
 import { AzureFunction, Context, HttpRequest } from '@azure/functions'
 import {
-  useLeanIX,
   UnauthenticatedError,
   InvalidLeanIXApiTokenError,
   InvalidLeanIXHostError,
   NetworkConnectivityError
 } from 'lx-core'
-import { IWebhookPayload } from './types'
+import { IWebhookPayload, QueueTask } from '../common/types'
 import NodeCache from 'node-cache'
 import { promise as Fastq } from 'fastq'
+import { accessToken, authenticate, queuedTask } from '../common'
 
-interface Task {
-  factSheetId: string
-}
-
-type TApplicationOperationalStatus = 'operational' | 'deprecated'
-
-interface IApplicationFields {
-  id: string
-  name: string
-  lifecycle: null | string
-  rev: number
-  mbgAppOperationalStatus: null | TApplicationOperationalStatus
-}
-
-// GraphQL query for fetching the maturity fields for a Business Capability
-const fetchApplicationFields = async (
-  factSheetId: string
-): Promise<IApplicationFields | null> => {
-  const res = await executeGraphQL<{
-    factSheet: {
-      id: string
-      type: string
-      name: string
-      rev: number
-      lifecycle: null | {
-        asString: string
-      }
-      mbgAppOperationalStatus: TApplicationOperationalStatus | null
-    }
-  }>(
-    'query ($factSheetId: ID!) { factSheet(id: $factSheetId) { id type ...on Application { rev name lifecycle { asString } mbgAppOperationalStatus } } }',
-    { factSheetId }
-  )
-  if ((res?.errors ?? null) !== null) {
-    console.error(res.errors)
-    return null
-  }
-  const factSheet = res.data?.factSheet ?? null
-  if (factSheet === null) return null
-  const { id, name, lifecycle, mbgAppOperationalStatus, rev } = factSheet
-  const applicationFields: IApplicationFields = {
-    id,
-    name,
-    rev,
-    lifecycle: lifecycle?.asString ?? null,
-    mbgAppOperationalStatus
-  }
-  return applicationFields
-}
-
-const mutateApplicationStatus = async (
-  factSheetId: string,
-  rev: number,
-  mbgAppOperationalStatus: TApplicationOperationalStatus | null
-) => {
-  const query = `
-    mutation ($factSheetId:ID!, $rev:Long, $patches: [Patch]!){
-    updateFactSheet(id:$factSheetId, rev:$rev, patches:$patches){
-      factSheet {
-        id
-      }
-    }
-  }`
-  const variables = {
-    factSheetId,
-    rev,
-    patches: [
-      {
-        op: 'replace',
-        path: '/mbgAppOperationalStatus',
-        value: mbgAppOperationalStatus
-      }
-    ]
-  }
-  const { errors } = await executeGraphQL(query, variables)
-  if (Array.isArray(errors)) {
-    console.log(`Error while updating Application ${factSheetId}`, errors)
-  }
-}
-
-const getExpectedStatus = (lifecycle: string | null) => {
-  let status: TApplicationOperationalStatus | null = null
-  switch (lifecycle) {
-    case null:
-    case '-':
-      status = null
-      break
-    case 'endOfLife':
-      status = 'deprecated'
-      break
-    default:
-      status = 'operational'
-      break
-  }
-  return status
-}
-
-const worker = async (task: Task) => {
-  let applicationFields: IApplicationFields | null = null
-  try {
-    applicationFields = await fetchApplicationFields(task.factSheetId)
-  } catch (err) {
-    if (err instanceof UnauthenticatedError) {
-      await authenticate()
-      applicationFields = await fetchApplicationFields(task.factSheetId)
-    } else throw err
-  }
-  if (applicationFields === null) {
-    console.error(`Could not fetch fields for application: ${task.factSheetId}`)
-    return
-  }
-  const { lifecycle, mbgAppOperationalStatus, name, rev } = applicationFields
-  const expectedStatus = getExpectedStatus(lifecycle)
-  if (mbgAppOperationalStatus !== expectedStatus) {
-    await mutateApplicationStatus(task.factSheetId, rev, expectedStatus)
-    console.log(`SET: ${name} => ${expectedStatus}`)
-  }
-}
-
-const queue = Fastq<any, Task, void>(worker, 1)
+const queue = Fastq<any, QueueTask, void>(queuedTask, 1)
 const cache = new NodeCache({ stdTTL: 120, deleteOnExpire: true })
-
-const { authenticate, accessToken, executeGraphQL } = useLeanIX({
-  // Local development: environment variables defined in local.settings.json
-  host: process.env.LXR_HOST as string,
-  apitoken: process.env.LXR_APITOKEN as string
-})
 
 // This will be sent if we get an invalid request
 const getInvalidResponse = () => ({
@@ -176,7 +51,7 @@ const requestHandler = async (context: Context, req: HttpRequest) => {
     return
   }
   cache.set(body.factSheet.id, body.transactionSequenceNumber)
-  queue.push({ factSheetId: body.factSheet.id })
+  queue.push({ applicationId: body.factSheet.id })
   context.res = { status: 200 }
 }
 

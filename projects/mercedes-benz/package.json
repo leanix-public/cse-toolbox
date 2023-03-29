@@ -7,7 +7,9 @@
     "name": "Paulo Santos"
   },
   "scripts": {
-    "build": "npx esbuilder -e ./MercedesBenzWebhookListener/index.ts",
+    "build:webhooklistener": "npx esbuilder -e ./MercedesBenzWebhookListener/index.ts",
+    "build:updatedtask": "npx esbuilder -e ./MercedesBenzInventoryUpdaterTask/index.ts",
+    "build": "npm run build:webhooklistener && npm run build:updatedtask",
     "prestart": "npm run build",
     "start": "func start",
     "test": "echo \"No tests yet...\"",

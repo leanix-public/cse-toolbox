@@ -22,6 +22,9 @@ The user wants to set the "mbgAppOperationalStatus" Application field to "deprec
 The following App Keys are required: "LXR_HOST" and "LXR_APITOKEN".
 Without those keys defined, the webhook listener will return a "401 - Invalid credentials" error.
 
+NOTE: The MercedesBenzInventoryUpdater time-triggered function requires the "AzureWebJobsStorage" value to be defined in "local.settings.json". For local development, it is required to install and start [Azurite](https://github.com/azure/azurite
+) through its vs code extension. This timer-triggered function is scheduled to run every day at 0100, and upon the Function startup.
+
 ### Data model
 
 The following field must be added to the **Application** data model:
