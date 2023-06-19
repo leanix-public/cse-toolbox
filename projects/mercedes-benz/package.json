@@ -1,0 +1,29 @@
+{
+  "name": "mercedes-benz",
+  "version": "0.1.0",
+  "description": "Azure function that computes the mbgAppOperationalStatus Application field from its current lifecycle",
+  "author": {
+    "email": "paulo.santos@leanix.net",
+    "name": "Paulo Santos"
+  },
+  "scripts": {
+    "build:webhooklistener": "npx esbuilder -e ./MercedesBenzWebhookListener/index.ts",
+    "build:updatedtask": "npx esbuilder -e ./MercedesBenzInventoryUpdaterTask/index.ts",
+    "build": "npm run build:webhooklistener && npm run build:updatedtask",
+    "prestart": "npm run build",
+    "start": "func start",
+    "test": "echo \"No tests yet...\"",
+    "prepublish": "npm run build",
+    "publish": "func azure functionapp publish mercedez-benz"
+  },
+  "devDependencies": {
+    "@azure/functions": "^3.0.0",
+    "@types/node": "16.x",
+    "azure-functions-core-tools": "^4.x",
+    "typescript": "^4.0.0"
+  },
+  "dependencies": {
+    "fastq": "^1.15.0",
+    "node-cache": "^5.1.2"
+  }
+}

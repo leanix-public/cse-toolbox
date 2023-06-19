@@ -128,3 +128,7 @@ dist
 lxr.json
 
 .DS_Store
+
+__azurite_db*__.json
+__blobstorage__
+__queuestorage__
